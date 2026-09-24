@@ -1,0 +1,1 @@
+# RTL-Word-Collator
