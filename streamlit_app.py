@@ -12,7 +12,7 @@ import word_collator as wc
 
 QR_FILE = Path(__file__).with_name("rtl-word-collator-qr.png")
 
-st.set_page_config(page_title="RTL Word Collator", page_icon="📝", layout="centered")
+st.set_page_config(page_title="RTL Word Collator", page_icon="📙", layout="centered")
 
 st.markdown(
     """
@@ -33,6 +33,12 @@ st.markdown(
         padding: 0.15rem 0.7rem; border-radius: 999px;
         background: rgba(217, 95, 63, 0.14); color: #D95F3F;
     }
+    [data-testid="stMetric"] { text-align: center; }
+    [data-testid="stMetricLabel"], [data-testid="stMetricValue"] {
+        justify-content: center; justify-items: center;
+    }
+    [data-testid="stMetricLabel"] { grid-template-columns: auto; }
+    [data-testid="stMetricLabel"] p { font-size: 1rem; }
     </style>
     """,
     unsafe_allow_html=True,
