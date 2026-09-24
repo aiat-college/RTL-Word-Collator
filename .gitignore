@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Google OAuth secrets (use env vars / Streamlit secrets instead)
+credentials.json
+token.json
+.DS_Store
+secrets.toml.example
