@@ -17,21 +17,14 @@ st.set_page_config(page_title="RTL Word Collator", page_icon="📙", layout="cen
 st.markdown(
     """
     <style>
-    .word-list { list-style: none; padding: 0; margin: 0.5rem 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem 0.8rem; }
-    @media (max-width: 640px) { .word-list { grid-template-columns: minmax(0, 1fr); } }
-    .word-list li {
-        display: flex; align-items: center; gap: 0.9rem;
-        padding: 0.7rem 1rem;
-        border: 1px solid rgba(128, 128, 128, 0.25); border-radius: 0.6rem;
-        font-size: 1.15rem;
+    [data-testid="stCode"] pre { padding: 1.2rem 1.5rem !important; }
+    [data-testid="stCode"] pre, [data-testid="stCode"] code {
+        font-size: 1.6rem !important; line-height: 1.7 !important; font-weight: 600;
     }
-    .word-list .word { overflow-wrap: anywhere; }
-    .word-list .idx { opacity: 0.5; min-width: 2rem; font-variant-numeric: tabular-nums; }
-    .word-list .word { flex: 1; font-weight: 600; }
-    .word-list .count {
-        min-width: 2.6rem; text-align: center; font-weight: 700;
-        padding: 0.15rem 0.7rem; border-radius: 999px;
-        background: rgba(217, 95, 63, 0.14); color: #D95F3F;
+    /* keep the copy button visible, not just on hover */
+    [data-testid="stCode"] div:has([data-testid="stElementToolbarButton"]),
+    [data-testid="stCode"] [data-testid="stElementToolbarButton"] {
+        opacity: 1 !important; visibility: visible !important;
     }
     [data-testid="stMetric"] { text-align: center; }
     [data-testid="stMetricLabel"], [data-testid="stMetricValue"] {
@@ -117,13 +110,8 @@ def render_results(results):
     c1.metric("Unique words", len(results))
     c2.metric("Total mentions", total)
 
-    items = "".join(
-        f'<li><span class="idx">{i}.</span>'
-        f'<span class="word">{escape(word)}</span>'
-        f'<span class="count">{count}</span></li>'
-        for i, (word, count) in enumerate(results, 1)
-    )
-    st.markdown(f'<ul class="word-list">{items}</ul>', unsafe_allow_html=True)
+    text = "\n".join(f"{word} ({count})" for word, count in results)
+    st.code(text, language=None, wrap_lines=True)
 
 
 def render_pending(pair):
